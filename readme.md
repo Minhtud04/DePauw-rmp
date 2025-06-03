@@ -1,108 +1,48 @@
 # DePauw professor Search 
-*(Re-do from someone else extension (has been removed?) - idk but I enjoy it a lot)*
+*(Re-do from someone else extension (has been removed?))*
 
-This browser extension accesses [DePauw University's static HTML course schedule](https://my.depauw.edu/e/reg/soc-view/results.asp) to display professor ratings from Rate My Professor.
+This extension accesses [DePauw University's static HTML course schedule](https://my.depauw.edu/e/reg/soc-view/results.asp) to display professor ratings from Rate My Professor.
 
-## Run
+### Logic
+The idea is simple:
+1. Crawl DePauw professor's data from Rate My Professor's GraphQL (https://www.ratemyprofessors.com/graphql) -> luckily the rmp's endpoint is easy to find in Inspect/Network
 
-Current, I have not publiced it in Chrome extension. Th
+2. Store in the extension's local storage to avoid excessive re-fetch (still need to enable annual re-fetching mechanism at the start of each course's selection season)
 
-### Prerequisites
-- [Node.js](https://nodejs.org/) v14 or higher
-- [Python](https://www.python.org/) v3.8 or higher
-- Any other dependencies
+3. Loop through the course schedule static html page, and find match of the professor's name in the course table and rmp crawl data above (Fuzzy Match if needed)
 
-### Steps
+
+**Lesson Learnt**
+1. Reading /Inspect/Network tab of browsers
+2. Writing a browser's extension: manifest.json/background scripts/mains cripts
+3. Build bundles with node.js and webpack
+
+
+### Local Run
+(Install [Node.js](https://nodejs.org/) v14 or higher)
 1. Clone the repository:
    ```bash
-   git clone https://github.com/username/repository-name.git
+   git clone https://github.com/Minhtud04/DePauw-rmp.git
+   
+   cd chrome_extension_v2
    ```
-2. Navigate to the project directory:
-   ```bash
-   cd repository-name
-   ```
-3. Install dependencies:
+2. Install dependencies:
    ```bash
    npm install
    ```
-   or, for Python projects:
+
+3. Packing/Build
    ```bash
-   pip install -r requirements.txt
+   npm run build
    ```
+   
+4. Add local extension
+- Look for: https://learn.microsoft.com/en-us/microsoft-edge/extensions-chromium/getting-started/extension-sideloading
+- Load  /dist (built folder)
 
-## Usage
+***Will publish soon***
 
-Provide examples of how to use the project. For example:
-
-```bash
-# Run the application
-npm start
-```
-
-For a Python script:
-```python
-import my_module
-
-result = my_module.function_name()
-print(result)
-```
-
-(Optionally, include a screenshot or GIF here for visual projects.)
-
-## Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository.
-2. Create a new branch:
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-3. Make your changes and commit them:
-   ```bash
-   git commit -m "Add your feature"
-   ```
-4. Push to your branch:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-5. Open a pull request with a clear description of your changes.
-
-Please adhere to our [Code of Conduct](CODE_OF_CONDUCT.md) and follow the [contributing guidelines](CONTRIBUTING.md).
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Contact
+- Email: minhnguyen150403@gmail.com
 
-For questions or feedback, reach out via:
-- Email: your.email@example.com
-- GitHub Issues: [Repository Issues](https://github.com/username/repository-name/issues)
-
-## Acknowledgments
-
-- Thanks to [Contributor Name] for their valuable input.
-- Built with [Library/Tool Name].
-
-### Journal steps:
-1. Create a python server just to host that script - a small flask server with only 1 endpoint
-
-2. Strategy for JS extension:
-- Local cache: fetch the json back to the extension, and store it inside the cache. 
-
-- TTL: If over a month -> re-fetch. Else, keep it live inside this local folder.
-
-JS extension:
-1. JQuery to check if document is fully loaded or not.
-    - will do this first - setup the environment !
-2. If yes:
-    - Locate all professor name inside
-    - Send a request:
-        - Include that list of name -> let backend handle
-
-
-Backend Python:
-1. Crawl script: get all data from RMP
-2. Response:
-    - merge data from the rmp, and the data I just received !
