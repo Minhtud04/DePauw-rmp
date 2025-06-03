@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "DePauw RMP Professor Ratings",
+  "version": "1.0",
+  "description": "Displays RateMyProfessor ratings on the DePauw course schedule page.",
+
+  "permissions": [
+    "storage",
+    "activeTab",
+    "https://www.ratemyprofessors.com/*"
+  ],
+
+  "host_permissions": [
+    "https://www.ratemyprofessors.com/*",
+    "https://my.depauw.edu/*"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": ["https://my.depauw.edu/e/reg/soc-view/results.asp*"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+
+   "background": {
+    "service_worker": "background.js"
+  }
+}

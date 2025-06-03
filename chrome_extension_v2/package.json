@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "chrome extension crawling rmp depauw professor and display on course schedule page",
   "main": "index.js",
-
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --watch --mode=development",
@@ -12,9 +11,17 @@
   },
   "author": "Minh Nguyen",
   "license": "ISC",
-  
   "dependencies": {
     "axios": "^1.9.0",
-    "jquery": "^3.7.1"
+    "jquery": "^3.7.1",
+    "string-similarity": "^4.0.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.27.4",
+    "@babel/preset-env": "^7.27.2",
+    "babel-loader": "^10.0.0",
+    "copy-webpack-plugin": "^13.0.0",
+    "webpack": "^5.99.9",
+    "webpack-cli": "^6.0.1"
   }
 }
